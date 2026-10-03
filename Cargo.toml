@@ -1,0 +1,31 @@
+[package]
+name = "ayva-linux"
+version = "0.1.0"
+edition = "2021"
+authors = ["Rajesh <github.com/Nrajesh0>"]
+description = "Hardened native Ayva Notes & Smart Tasks for Fedora GNOME 44+"
+
+[dependencies]
+# Low-level memory & process protection
+libc = "0.2"
+zeroize = { version = "1.8", features = ["derive", "zeroize_derive"] }
+subtle = "2.5"
+
+# Cryptographic core
+argon2 = { version = "0.5", features = ["std"] }
+chacha20poly1305 = "0.10"
+hkdf = "0.12"
+sha2 = "0.10"
+bip39 = { version = "2.0", features = ["rand"] }
+rand = "0.8"
+
+# Persistence & Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Text parsing & Date
+regex = "1.10"
+chrono = { version = "0.4", features = ["serde"] }
+
+[dev-dependencies]
+tempfile = "3.10"
