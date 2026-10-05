@@ -13,8 +13,8 @@
 |:---:|:---|:---:|:---:|
 | **Batch 1** | **Project Scaffold & Process Memory Hardening** | **COMPLETED** | ✅ 6/6 tests passing (`prctl`, `mlock`, `zeroize`) |
 | **Batch 2** | **Cryptographic Core Engine (Argon2id, HKDF, XChaCha20, BIP-39)** | **COMPLETED** | ✅ 23/23 tests passing (Argon2id, HKDF, XChaCha20-Poly1305, BIP-39 recovery) |
-| **Batch 3** | **Smart Date & NLP Todo Parser (`smart_date.rs`)** | **PENDING APPROVAL** | Next up |
-| **Batch 4** | **SQLCipher Database Layer** | Pending | - |
+| **Batch 3** | **Smart Date & NLP Todo Parser (`smart_date.rs`)** | **COMPLETED** | ✅ 38/38 tests passing (1:1 port of SmartDateParser.kt + priority/tag extraction) |
+| **Batch 4** | **SQLCipher Database Layer** | **PENDING APPROVAL** | Next up |
 | **Batch 5** | **Vault Security Manager & Monotonic Lockout Engine** | Pending | - |
 | **Batch 6** | **Ayva Midnight Theme & Design System (CSS Tokens)** | Pending | - |
 | **Batch 7** | **Main Application Shell & Navigation (Libadwaita)** | Pending | - |
@@ -71,6 +71,26 @@
     * Emergency forgotten-PIN 12-word restoration integration test.
 * **Verification**:
   * `cargo test`: 23 passed, 0 failed.
+
+---
+
+### Batch 3: Smart Date & NLP Todo Parser (COMPLETED)
+* **Date Completed**: 2026-10-05
+* **Artifacts Created**:
+  * `src/parser/smart_date.rs`:
+    * 1:1 port of Ayva's `SmartDateParser.kt` regex and calendar algorithms.
+    * NLP command prefix stripping (`"remind me to"`, `"schedule"`, `"reschedule"`, `"task:"`, `"todo:"`, etc.).
+    * Recurrence engine (`Daily`, `Weekly`, `Monthly`, `Yearly`, `Birthday`/`Anniversary` auto-detect).
+    * Relative day resolution (`today`, `tomorrow`, `tonight`, `next week`, `next month`, `next year`, `in 3 days`, `in 2 hours`).
+    * Full date format recognition (`ISO YYYY-MM-DD`, `DMY`, Month + Day name).
+    * Comprehensive time parser (12h AM/PM, 24h, `noon`, `midnight`, `morning`, `evening`, `9 o'clock`).
+    * Priority extraction (`!urgent`, `!high`, `!med`, `!low`, `p1`, `p2`, `p3`, `p4`).
+    * Tag extraction (`#work`, `#personal`, `#dev`).
+    * Leap year handling (Feb 29 -> Feb 28 graceful fallback with informative note in non-leap years).
+  * `src/parser/mod.rs` & `src/lib.rs`: Exposes parser module.
+  * `tests/parser_tests.rs`: Exhaustive test suite verifying 30+ phrasing styles.
+* **Verification**:
+  * `cargo test`: 38 passed, 0 failed across all suites.
 
 ---
 
